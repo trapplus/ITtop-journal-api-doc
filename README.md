@@ -8,8 +8,8 @@
 src/        Source code
 tests/      Tests (mirror src/ structure)
 docs/
+  design/   Design docs
   plans/    Implementation plans
-  specs/    Design documents
 skills/     Agent skill references
 .codex/     Codex agent config
 .github/    PR templates

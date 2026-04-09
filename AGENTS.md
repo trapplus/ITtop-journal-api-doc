@@ -71,8 +71,8 @@ Red flags — stop and re-investigate if you're thinking:
 src/        # Source code
 tests/      # Tests — mirror src/ structure
 docs/
+  design/   # Design docs
   plans/    # Implementation plans (YYYY-MM-DD-name.md)
-  specs/    # Design docs / specs
 skills/     # Agent skill references (see below)
 .codex/     # Codex-specific config
 ```
