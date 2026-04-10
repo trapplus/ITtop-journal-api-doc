@@ -44,7 +44,7 @@ class JournalClient:
         payload = {
             "application_key": "",
             "id_city": None,
-            "login": self.login,
+            "username": self.login,
             "password": self.password,
         }
 
