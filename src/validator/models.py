@@ -1,113 +1,111 @@
-"""Pydantic placeholder models for known Journal API endpoints."""
-
-from typing import Any
+"""Pydantic v2 models for IT Top Journal API endpoints."""
 
 from pydantic import BaseModel, ConfigDict
+from typing import Any
 
 
-class UserInfoResponse(BaseModel):
-    """Model for /settings/user-info."""
-
+class _Base(BaseModel):
     model_config = ConfigDict(extra="allow")
-    # TODO: update fields after first real collection run
-    id: int | None = None
-    name: str | None = None
-    email: str | None = None
 
 
-class AverageProgressResponse(BaseModel):
-    """Model for /dashboard/chart/average-progress."""
-
-    model_config = ConfigDict(extra="allow")
-    # TODO: update fields after first real collection run
-    average: float | None = None
-    points: list[dict[str, Any]] | None = None
-
-
-class AttendanceChartResponse(BaseModel):
-    """Model for /dashboard/chart/attendance."""
-
-    model_config = ConfigDict(extra="allow")
-    # TODO: update fields after first real collection run
-    attendance: float | None = None
-    timeline: list[dict[str, Any]] | None = None
-
-
-class LeaderGroupProgressResponse(BaseModel):
-    """Model for /dashboard/progress/leader-group."""
-
-    model_config = ConfigDict(extra="allow")
-    # TODO: update fields after first real collection run
-    leaders: list[dict[str, Any]] | None = None
+# /settings/user-info — dict
+class UserInfoResponse(_Base):
+    student_id: int | None = None
+    full_name: str | None = None
+    group_name: str | None = None
+    stream_name: str | None = None
+    level: int | None = None
+    age: int | None = None
+    gender: int | None = None
+    birthday: str | None = None
+    last_date_visit: str | None = None
+    registration_date: str | None = None
+    current_group_id: int | None = None
+    current_group_status: int | None = None
+    stream_id: int | None = None
+    achieves_count: int | None = None
+    manual_link: Any = None
+    photo: str | None = None
+    study_form_short_name: str | None = None
 
 
-class LeaderStreamProgressResponse(BaseModel):
-    """Model for /dashboard/progress/leader-stream."""
-
-    model_config = ConfigDict(extra="allow")
-    # TODO: update fields after first real collection run
-    leaders: list[dict[str, Any]] | None = None
-
-
-class StudentVisitsResponse(BaseModel):
-    """Model for /progress/operations/student-visits."""
-
-    model_config = ConfigDict(extra="allow")
-    # TODO: update fields after first real collection run
-    visits: list[dict[str, Any]] | None = None
-
-
-class HomeworkCountResponse(BaseModel):
-    """Model for /count/homework."""
-
-    model_config = ConfigDict(extra="allow")
-    # TODO: update fields after first real collection run
-    count: int | None = None
-
-
-class ScheduleByDateResponse(BaseModel):
-    """Model for /schedule/operations/get-by-date."""
-
-    model_config = ConfigDict(extra="allow")
-    # TODO: update fields after first real collection run
+# /dashboard/chart/average-progress — list of these
+class AverageProgressItem(_Base):
     date: str | None = None
-    lessons: list[dict[str, Any]] | None = None
+    points: int | float | None = None
+    previous_points: int | float | None = None
+    has_rasp: bool | None = None
 
 
-class ReviewsListResponse(BaseModel):
-    """Model for /reviews/index/list."""
-
-    model_config = ConfigDict(extra="allow")
-    # TODO: update fields after first real collection run
-    reviews: list[dict[str, Any]] | None = None
-
-
-class EvaluateLessonListResponse(BaseModel):
-    """Model for /feedback/students/evaluate-lesson-list."""
-
-    model_config = ConfigDict(extra="allow")
-    # TODO: update fields after first real collection run
-    lessons: list[dict[str, Any]] | None = None
+# /dashboard/chart/attendance — list of these
+class AttendanceItem(_Base):
+    date: str | None = None
+    points: int | float | None = None
+    previous_points: int | float | None = None
+    has_rasp: bool | None = None
 
 
-class PublicTagsResponse(BaseModel):
-    """Model for /public/tags."""
+# /dashboard/progress/leader-group and leader-stream — list of these
+class LeaderboardItem(_Base):
+    id: int | None = None
+    full_name: str | None = None
+    photo_path: str | None = None
+    position: int | None = None
+    amount: int | float | None = None
 
-    model_config = ConfigDict(extra="allow")
-    # TODO: update fields after first real collection run
-    tags: list[str] | list[dict[str, Any]] | None = None
+
+# /progress/operations/student-visits — list of these
+class StudentVisitItem(_Base):
+    date_visit: str | None = None
+    lesson_number: int | None = None
+    status_was: int | None = None
+    spec_id: int | None = None
+    teacher_name: str | None = None
+    spec_name: str | None = None
+    lesson_theme: str | None = None
+    control_work_mark: int | float | None = None
+    home_work_mark: int | float | None = None
+    lab_work_mark: int | float | None = None
+    class_work_mark: int | float | None = None
+    practical_work_mark: int | float | None = None
+    final_work_mark: int | float | None = None
 
 
-MODELS: dict[str, type[BaseModel]] = {
-    "/settings/user-info": UserInfoResponse,
-    "/dashboard/chart/average-progress": AverageProgressResponse,
-    "/dashboard/chart/attendance": AttendanceChartResponse,
-    "/dashboard/progress/leader-group": LeaderGroupProgressResponse,
-    "/dashboard/progress/leader-stream": LeaderStreamProgressResponse,
-    "/progress/operations/student-visits": StudentVisitsResponse,
-    "/count/homework": HomeworkCountResponse,
-    "/schedule/operations/get-by-date": ScheduleByDateResponse,
-    "/reviews/index/list": ReviewsListResponse,
-    "/feedback/students/evaluate-lesson-list": EvaluateLessonListResponse,
-    "/public/tags": PublicTagsResponse,
-}
+# /count/homework — list of these
+class HomeworkCountItem(_Base):
+    counter_type: int | None = None
+    counter: int | None = None
+
+
+# /schedule/operations/get-by-date — list of these
+class ScheduleItem(_Base):
+    date: str | None = None
+    lesson: int | None = None
+    started_at: str | None = None
+    finished_at: str | None = None
+    teacher_name: str | None = None
+    subject_name: str | None = None
+    room_name: str | None = None
+
+
+# /reviews/index/list — list of these
+class ReviewItem(_Base):
+    date: str | None = None
+    message: str | None = None
+    spec: str | None = None
+    full_spec: str | None = None
+    teacher: str | None = None
+
+
+# /feedback/students/evaluate-lesson-list — list of these
+class EvaluateLessonItem(_Base):
+    key: str | None = None
+    date_visit: str | None = None
+    fio_teach: str | None = None
+    spec_name: str | None = None
+    teach_photo: Any = None
+
+
+# /public/tags — list (empty or items with unknown structure)
+class PublicTagItem(_Base):
+    pass
