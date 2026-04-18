@@ -12,7 +12,7 @@ project/
 ├── src/
 │   ├── collector/
 │   │   ├── __init__.py
-│   │   ├── client.py            # Playwright: авторизация, запросы к эндпоинтам
+│   │   ├── client.py            # httpx: авторизация, запросы к эндпоинтам, retry
 │   │   └── endpoints.py         # Список известных эндпоинтов и методов
 │   ├── validator/
 │   │   ├── __init__.py
@@ -51,7 +51,7 @@ project/
 
 | Модуль | Роль |
 |--------|------|
-| `client.py` | Playwright: логин, сессия, GET/POST запросы |
+| `client.py` | HTTP-клиент: логин, сессия, GET/POST запросы, retry |
 | `endpoints.py` | Список `Endpoint(path, method, params)` |
 
 ### Ключевые интерфейсы
@@ -74,7 +74,7 @@ class JournalClient:
 ```
 
 ### Зависимости
-- `playwright` — браузерная автоматизация
+- `httpx` — async HTTP-запросы к Journal API
 - `os.environ` — `JOURNAL_LOGIN`, `JOURNAL_PASSWORD` из GitHub Secrets
 
 ---
@@ -199,11 +199,15 @@ on:
 jobs:
   collect:
     steps:
-      - collect      → src/collector
-      - validate     → src/validator   # FAIL = создаём Issue
-      - anonymize    → src/anonymizer
-      - build        → src/publisher
-      - deploy       → GitHub Pages
+      - collect      → src/collector (auth: username+password+application_key)
+      - validate     → src/validator (model, is_list dispatch)
+                       on failure: writes data/validation_issue.md
+                       sets GITHUB_OUTPUT validation_failed=true
+      - anonymize    → src/anonymizer (recursive type-based faker)
+      - build        → src/publisher (openapi.json → documentation/)
+      - deploy       → peaceiris/actions-gh-pages → GitHub Pages
+      - issue        → peter-evans/create-issue-from-file
+                       only if validation_failed == 'true'
 ```
 
 ---
@@ -216,6 +220,7 @@ jobs:
 | API не отвечает | Retry x3 с паузой 10 мин, затем прокси, затем пауза 24ч |
 | Rate limit | Retry через 5 мин, при повторе — Issue |
 | Ошибка авторизации | Немедленная остановка, Issue |
+| CI issue spam | `hashFiles()` читает repo, а не runtime-файл → использовать step output |
 
 ---
 
