@@ -66,3 +66,16 @@ def test_build_uses_username_field_for_login_example():
 
     assert "username" in login_example
     assert "login" not in login_example
+
+
+def test_build_uses_array_schema_and_response_examples_for_list_endpoints():
+    """List endpoints should expose array schemas and include collected examples."""
+
+    examples = {"/dashboard/chart/attendance": [{"date": "2026-04-18", "value": 1}]}
+    spec = OpenAPIBuilder().build(examples=examples)
+    response = spec["paths"]["/dashboard/chart/attendance"]["get"]["responses"]["200"][
+        "content"
+    ]["application/json"]
+
+    assert response["schema"]["type"] == "array"
+    assert response["example"] == examples["/dashboard/chart/attendance"]

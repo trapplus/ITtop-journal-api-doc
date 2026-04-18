@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from src.collector.endpoints import ENDPOINTS, LOGIN_PATH
+from src.validator.validator import MODELS as VALIDATOR_MODELS
 
 API_DOWN_WARNING = "⚠️ API unavailable at collection time. Examples may be outdated."
 REQUIRED_HEADERS = [
@@ -74,6 +75,18 @@ class OpenAPIBuilder:
 
         for endpoint in ENDPOINTS:
             method = endpoint.method.lower()
+            if endpoint.path in VALIDATOR_MODELS:
+                _model, is_list = VALIDATOR_MODELS[endpoint.path]
+                if is_list:
+                    response_schema = {
+                        "type": "array",
+                        "items": {"type": "object", "additionalProperties": True},
+                    }
+                else:
+                    response_schema = {"type": "object", "additionalProperties": True}
+            else:
+                response_schema = {"type": "object", "additionalProperties": True}
+
             operation: dict[str, Any] = {
                 "summary": f"{endpoint.method} {endpoint.path}",
                 "description": f"Auto-generated operation for `{endpoint.path}`.",
@@ -82,10 +95,7 @@ class OpenAPIBuilder:
                         "description": "Successful response",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "additionalProperties": True,
-                                }
+                                "schema": response_schema
                             }
                         },
                     }
