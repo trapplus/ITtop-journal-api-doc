@@ -51,7 +51,7 @@
 
 Явно зафиксируй фичи которые ты намеренно откладываешь.
 
-- [ ] Ussie creator and log
+- [X] Issue creator and log
 
 ---
 
