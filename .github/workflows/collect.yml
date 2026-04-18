@@ -27,10 +27,14 @@ jobs:
         env:
           JOURNAL_LOGIN: ${{ secrets.JOURNAL_LOGIN }}
           JOURNAL_PASSWORD: ${{ secrets.JOURNAL_PASSWORD }}
-        run: python main.py
-
+        run: |
+          python main.py
+          if [ -f data/validation_issue.md ]; then
+            echo "validation_failed=true" >> $GITHUB_OUTPUT
+          fi
+      
       - name: Create issue if validation failed
-        if: ${{ hashFiles('data/validation_issue.md') != '' }}
+        if: steps.pipeline.outputs.validation_failed == 'true'
         uses: peter-evans/create-issue-from-file@v5
         with:
           title: "API schema changed — validation failed"
