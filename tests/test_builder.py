@@ -43,6 +43,19 @@ def test_build_adds_security_headers_and_auth_scheme():
     assert auth_operation["security"] == [{"BearerAuth": []}]
 
 
+def test_build_adds_required_headers_to_authenticated_operations():
+    """Authenticated operations should declare required request headers."""
+
+    spec = OpenAPIBuilder().build(examples={})
+    auth_operation = spec["paths"]["/settings/user-info"]["get"]
+
+    assert [item["name"] for item in auth_operation["parameters"][:3]] == [
+        "Origin",
+        "Referer",
+        "User-Agent",
+    ]
+
+
 def test_build_uses_username_field_for_login_example():
     """Login request example should document the real username field."""
 

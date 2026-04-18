@@ -8,6 +8,35 @@ from typing import Any
 from src.collector.endpoints import ENDPOINTS, LOGIN_PATH
 
 API_DOWN_WARNING = "⚠️ API unavailable at collection time. Examples may be outdated."
+REQUIRED_HEADERS = [
+    {
+        "name": "Origin",
+        "in": "header",
+        "required": True,
+        "schema": {"type": "string"},
+        "example": "https://journal.top-academy.ru",
+        "description": "Required by the API CORS policy.",
+    },
+    {
+        "name": "Referer",
+        "in": "header",
+        "required": True,
+        "schema": {"type": "string"},
+        "example": "https://journal.top-academy.ru/",
+        "description": "Required by the API. Must end with trailing slash.",
+    },
+    {
+        "name": "User-Agent",
+        "in": "header",
+        "required": False,
+        "schema": {"type": "string"},
+        "example": (
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+        ),
+        "description": "Recommended to match a real browser UA to avoid blocks.",
+    },
+]
 
 
 class OpenAPIBuilder:
@@ -77,6 +106,7 @@ class OpenAPIBuilder:
 
             if endpoint.method.upper() == "POST" and endpoint.params:
                 operation["requestBody"] = {
+                    "description": "Content-Type: application/json must be set explicitly.",
                     "required": True,
                     "content": {
                         "application/json": {
@@ -88,6 +118,8 @@ class OpenAPIBuilder:
 
             if endpoint.path != LOGIN_PATH:
                 operation["security"] = [{"BearerAuth": []}]
+                existing_params = operation.get("parameters", [])
+                operation["parameters"] = REQUIRED_HEADERS + existing_params
 
             if endpoint.path in examples:
                 operation["responses"]["200"]["content"]["application/json"]["example"] = examples[
