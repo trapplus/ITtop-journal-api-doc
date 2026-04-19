@@ -1,0 +1,18 @@
+```
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Test coverage
+.pytest_cache/
+.coverage
+coverage/
+htmlcov/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+```
