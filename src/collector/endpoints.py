@@ -43,7 +43,6 @@ ENDPOINTS: list[Endpoint] = [
         "filter_type": 0,
         "recommended_type": 0,
     }),
-    Endpoint(path="/library/quiz/opened-interview", method="GET"),
     Endpoint(path="/count/homework", method="GET"),
     Endpoint(path="/reviews/index/list", method="GET"),
     Endpoint(path="/reviews/index/instruction", method="GET"),
