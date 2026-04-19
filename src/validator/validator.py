@@ -47,16 +47,16 @@ class Validator:
         results = []
         for path, data in raw.items():
             # 1. Обработка ошибок сетевого уровня от Collector
+            if path not in MODELS:
+                results.append(ValidationResult(endpoint=path, success=True, errors=[]))
+                continue
+
             if isinstance(data, dict) and "error" in data:
                 results.append(ValidationResult(
                     endpoint=path,
                     success=False,
                     errors=[f"Collector Error: {data['error']}"]
                 ))
-                continue
-
-            if path not in MODELS:
-                results.append(ValidationResult(endpoint=path, success=True, errors=[]))
                 continue
 
             model, is_list = MODELS[path]

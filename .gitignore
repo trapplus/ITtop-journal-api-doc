@@ -1,8 +1,1 @@
-data/raw/*
-!data/raw/.gitkeep
-__pycache__/
-.env
-*.pyc
-examples/data/validation_issue.md
-data/validation_issue.md
-.zed/
+Nothing needs to be added to the .gitignore file since only source code files (.py) were modified and no build artifacts, dependencies, or temporary files were detected in the changes.
