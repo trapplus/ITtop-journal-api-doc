@@ -1,4 +1,4 @@
-const MOCK = {
+{
   "/settings/user-info": {
     "groups": [
       {
@@ -3197,83 +3197,4 @@ const MOCK = {
     "сonfirmed": "cOzkXjuvEGzyKJ"
   },
   "/public/tags": []
-};
-
-const REAL_API_BASE = "https://msapi.top-academy.ru/api/v2";
-
-// CORS-хедеры добавляются ко всем ответам — и mock, и проксированным.
-// Без них браузер (Swagger UI на github.io) заблокирует ответ.
-const CORS_HEADERS = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-  "Access-Control-Allow-Headers": "*",
-  "Content-Type": "application/json; charset=utf-8",
-};
-
-function normalizePath(pathname) {
-  if (pathname === "/api/v2") return "/";
-  if (pathname.startsWith("/api/v2/")) return pathname.slice(7);
-  return pathname;
 }
-
-function jsonResponse(body, status = 200) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: CORS_HEADERS,
-  });
-}
-
-// Проксируем запрос на реальный API.
-// Authorization пробрасывается из оригинального запроса (Bearer токен юзера).
-// Origin/Referer/User-Agent подставляем принудительно — без них API вернёт 403.
-// Query string (date_filter, language и т.д.) тоже пробрасываем без изменений.
-async function proxyToRealApi(request, apiPath) {
-  const targetUrl = REAL_API_BASE + apiPath + new URL(request.url).search;
-
-  const proxyRequest = new Request(targetUrl, {
-    method: request.method,
-    headers: {
-      "Authorization": request.headers.get("Authorization") ?? "",
-      "Origin": "https://journal.top-academy.ru",
-      "Referer": "https://journal.top-academy.ru/",
-      "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
-      "Content-Type": "application/json",
-    },
-    // GET-запросы не имеют body — передаём только для POST
-    body: request.method !== "GET" ? request.body : undefined,
-  });
-
-  const realResponse = await fetch(proxyRequest);
-  const body = await realResponse.text();
-
-  // Прокидываем реальный статус-код от API, но заменяем хедеры на наши CORS-хедеры
-  return new Response(body, {
-    status: realResponse.status,
-    headers: CORS_HEADERS,
-  });
-}
-
-export default {
-  async fetch(request) {
-    // Preflight CORS запрос от браузера — отвечаем сразу без логики
-    if (request.method === "OPTIONS") {
-      return new Response(null, { status: 204, headers: CORS_HEADERS });
-    }
-
-    const apiPath = normalizePath(new URL(request.url).pathname);
-    const hasToken = request.headers.has("Authorization");
-
-    // Есть Bearer токен → проксируем на реальный API (живые данные)
-    if (hasToken) {
-      return proxyToRealApi(request, apiPath);
-    }
-
-    // Нет токена → отдаём mock (анонимизированные данные)
-    const payload = MOCK[apiPath];
-    if (payload === undefined) {
-      return jsonResponse({ error: "Not found", path: apiPath }, 404);
-    }
-
-    return jsonResponse(payload);
-  },
-};

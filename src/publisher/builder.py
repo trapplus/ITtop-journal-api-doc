@@ -43,18 +43,17 @@ REQUIRED_HEADERS = [
     },
 ]
 
-# Список серверов в порядке приоритета.
-# Swagger UI использует первый сервер по умолчанию — официальный идёт первым,
-# чтобы можно было сразу тестировать реальные ответы API с Bearer токеном.
-# Mock-сервер — запасной вариант: не требует авторизации, данные анонимизированы.
+# Worker — единственная точка входа для Swagger UI.
+# Прямой доступ к msapi.top-academy.ru из браузера невозможен из-за CORS:
+# сервер не возвращает Access-Control-Allow-Origin, браузер блокирует ответ.
+#
+# Worker решает это прозрачно:
+#   с Bearer токеном → проксирует на реальный API (живые данные)
+#   без токена       → отдаёт mock (анонимизированные данные)
 SERVERS = [
     {
-        "url": "https://msapi.top-academy.ru/api/v2",
-        "description": "Official API server (requires valid Bearer token)",
-    },
-    {
         "url": "https://ittop-mock.blazer19092008.workers.dev/api/v2",
-        "description": "Mock server (anonymized data, updated daily)",
+        "description": "Mock + proxy: без токена — mock-данные, с Bearer токеном — реальный API",
     },
 ]
 
@@ -87,8 +86,6 @@ class OpenAPIBuilder:
                 "version": date.today().isoformat(),
                 "description": description,
             },
-            # Порядок серверов важен: Swagger UI выбирает первый по умолчанию.
-            # Официальный сервер идёт первым — см. константу SERVERS выше.
             "servers": SERVERS,
             "components": {
                 "securitySchemes": {
@@ -111,9 +108,8 @@ class OpenAPIBuilder:
 
             # Определяем схему ответа через реестр MODELS из validator-а.
             # is_list=True  → schema type: array  (большинство эндпоинтов)
-            # is_list=False → schema type: object (единственный — /settings/user-info)
-            # Если эндпоинт не в MODELS (например /reviews/index/instruction) —
-            # fallback на object, не падаем.
+            # is_list=False → schema type: object (например /settings/user-info)
+            # Если эндпоинт не в MODELS — fallback на object, не падаем.
             if endpoint.path in VALIDATOR_MODELS:
                 _model, is_list = VALIDATOR_MODELS[endpoint.path]
                 if is_list:
@@ -167,11 +163,12 @@ class OpenAPIBuilder:
                     },
                 }
 
-            # Все эндпоинты кроме /auth/login требуют Bearer токен
-            # и обязательные заголовки Origin/Referer.
+            # Все эндпоинты кроме /auth/login требуют Bearer токен.
+            # Worker пробрасывает его на реальный API автоматически.
+            # Origin/Referer/User-Agent Worker тоже подставляет сам —
+            # но документируем их чтобы юзер понимал что реальный API требует.
             if endpoint.path != LOGIN_PATH:
                 operation["security"] = [{"BearerAuth": []}]
-                # REQUIRED_HEADERS идут первыми — они важнее query-параметров
                 existing_params = operation.get("parameters", [])
                 operation["parameters"] = REQUIRED_HEADERS + existing_params
 

@@ -1,0 +1,1828 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "IT Top Journal API",
+    "version": "2026-04-21",
+    "description": "Auto-generated documentation from daily Journal API collection."
+  },
+  "servers": [
+    {
+      "url": "https://ittop-mock.blazer19092008.workers.dev/api/v2",
+      "description": "Mock + proxy: без токена — mock-данные, с Bearer токеном — реальный API"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT access token obtained from POST /auth/login response field `access_token`. Pass as: Authorization: Bearer <token>"
+      }
+    }
+  },
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "POST /auth/login",
+        "description": "Auto-generated operation for `/auth/login`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Content-Type: application/json must be set explicitly.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "example": {
+                "application_key": "6a56a5df2667e65aab73ce76d1dd737f7d1faef9c52e8b8c55ac75f565d8e8a6",
+                "id_city": null,
+                "username": "<login>",
+                "password": "<password>"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/user-info": {
+      "get": {
+        "summary": "GET /settings/user-info",
+        "description": "Auto-generated operation for `/settings/user-info`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/profile/operations/settings": {
+      "get": {
+        "summary": "GET /profile/operations/settings",
+        "description": "Auto-generated operation for `/profile/operations/settings`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/profile/statistic/student-achievements": {
+      "get": {
+        "summary": "GET /profile/statistic/student-achievements",
+        "description": "Auto-generated operation for `/profile/statistic/student-achievements`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/dashboard/chart/average-progress": {
+      "get": {
+        "summary": "GET /dashboard/chart/average-progress",
+        "description": "Auto-generated operation for `/dashboard/chart/average-progress`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/dashboard/chart/attendance": {
+      "get": {
+        "summary": "GET /dashboard/chart/attendance",
+        "description": "Auto-generated operation for `/dashboard/chart/attendance`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/dashboard/chart/progress": {
+      "get": {
+        "summary": "GET /dashboard/chart/progress",
+        "description": "Auto-generated operation for `/dashboard/chart/progress`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/dashboard/progress/activity": {
+      "get": {
+        "summary": "GET /dashboard/progress/activity",
+        "description": "Auto-generated operation for `/dashboard/progress/activity`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/dashboard/progress/leader-group": {
+      "get": {
+        "summary": "GET /dashboard/progress/leader-group",
+        "description": "Auto-generated operation for `/dashboard/progress/leader-group`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/dashboard/progress/leader-stream": {
+      "get": {
+        "summary": "GET /dashboard/progress/leader-stream",
+        "description": "Auto-generated operation for `/dashboard/progress/leader-stream`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/dashboard/progress/leader-group-points": {
+      "get": {
+        "summary": "GET /dashboard/progress/leader-group-points",
+        "description": "Auto-generated operation for `/dashboard/progress/leader-group-points`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/dashboard/progress/leader-stream-points": {
+      "get": {
+        "summary": "GET /dashboard/progress/leader-stream-points",
+        "description": "Auto-generated operation for `/dashboard/progress/leader-stream-points`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/dashboard/info/future-exams": {
+      "get": {
+        "summary": "GET /dashboard/info/future-exams",
+        "description": "Auto-generated operation for `/dashboard/info/future-exams`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/schedule/operations/get-by-date-range": {
+      "get": {
+        "summary": "GET /schedule/operations/get-by-date-range",
+        "description": "Auto-generated operation for `/schedule/operations/get-by-date-range`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          },
+          {
+            "name": "date_start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "2026-04-21"
+          },
+          {
+            "name": "date_end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "2026-04-21"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/schedule/operations/get-month": {
+      "get": {
+        "summary": "GET /schedule/operations/get-month",
+        "description": "Auto-generated operation for `/schedule/operations/get-month`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          },
+          {
+            "name": "date_filter",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "2026-04-21"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/schedule/operations/get-by-date": {
+      "get": {
+        "summary": "GET /schedule/operations/get-by-date",
+        "description": "Auto-generated operation for `/schedule/operations/get-by-date`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          },
+          {
+            "name": "date_filter",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "2026-04-21"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/progress/operations/student-visits": {
+      "get": {
+        "summary": "GET /progress/operations/student-visits",
+        "description": "Auto-generated operation for `/progress/operations/student-visits`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/progress/operations/student-exams": {
+      "get": {
+        "summary": "GET /progress/operations/student-exams",
+        "description": "Auto-generated operation for `/progress/operations/student-exams`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/library/operations/list": {
+      "get": {
+        "summary": "GET /library/operations/list",
+        "description": "Auto-generated operation for `/library/operations/list`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          },
+          {
+            "name": "material_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": 2
+          },
+          {
+            "name": "filter_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": 0
+          },
+          {
+            "name": "recommended_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": 0
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/count/homework": {
+      "get": {
+        "summary": "GET /count/homework",
+        "description": "Auto-generated operation for `/count/homework`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/reviews/index/list": {
+      "get": {
+        "summary": "GET /reviews/index/list",
+        "description": "Auto-generated operation for `/reviews/index/list`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/reviews/index/instruction": {
+      "get": {
+        "summary": "GET /reviews/index/instruction",
+        "description": "Auto-generated operation for `/reviews/index/instruction`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/feedback/students/evaluate-lesson-list": {
+      "get": {
+        "summary": "GET /feedback/students/evaluate-lesson-list",
+        "description": "Auto-generated operation for `/feedback/students/evaluate-lesson-list`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/feedback/social-review/get-review-list": {
+      "get": {
+        "summary": "GET /feedback/social-review/get-review-list",
+        "description": "Auto-generated operation for `/feedback/social-review/get-review-list`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/signal/operations/signals-list": {
+      "get": {
+        "summary": "GET /signal/operations/signals-list",
+        "description": "Auto-generated operation for `/signal/operations/signals-list`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/signal/operations/problems-list": {
+      "get": {
+        "summary": "GET /signal/operations/problems-list",
+        "description": "Auto-generated operation for `/signal/operations/problems-list`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/news/operations/latest-news": {
+      "get": {
+        "summary": "GET /news/operations/latest-news",
+        "description": "Auto-generated operation for `/news/operations/latest-news`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/public/languages": {
+      "get": {
+        "summary": "GET /public/languages",
+        "description": "Auto-generated operation for `/public/languages`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    },
+    "/public/translations": {
+      "get": {
+        "summary": "GET /public/translations",
+        "description": "Auto-generated operation for `/public/translations`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "ru"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/public/tags": {
+      "get": {
+        "summary": "GET /public/tags",
+        "description": "Auto-generated operation for `/public/tags`.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru",
+            "description": "Required by the API CORS policy."
+          },
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "https://journal.top-academy.ru/",
+            "description": "Required by the API. Must end with trailing slash."
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "description": "Recommended to match a real browser UA to avoid blocks."
+          }
+        ]
+      }
+    }
+  }
+}

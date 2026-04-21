@@ -81,16 +81,16 @@ def test_build_uses_array_schema_and_response_examples_for_list_endpoints():
     assert response["example"] == examples["/dashboard/chart/attendance"]
 
 
-def test_build_contains_official_and_mock_servers():
-    """Spec should list both the real API and the mock server.
+def test_build_contains_single_worker_server():
+    """Spec should list only the Cloudflare Worker as server.
 
-    Swagger UI показывает первый сервер по умолчанию — официальный идёт первым,
-    чтобы можно было сразу делать запросы к реальному API с Bearer токеном.
-    Mock остаётся вторым — для проверки структуры без авторизации.
+    Прямой доступ к msapi.top-academy.ru из браузера невозможен из-за CORS.
+    Worker решает это прозрачно:
+      - без токена       → отдаёт mock (анонимизированные данные)
+      - с Bearer токеном → проксирует на реальный API (живые данные)
     """
 
     spec = OpenAPIBuilder().build(examples={})
-    urls = [s["url"] for s in spec["servers"]]
 
-    assert "https://msapi.top-academy.ru/api/v2" in urls
-    assert "https://ittop-mock.blazer19092008.workers.dev/api/v2" in urls
+    assert len(spec["servers"]) == 1
+    assert spec["servers"][0]["url"] == "https://ittop-mock.blazer19092008.workers.dev/api/v2"
