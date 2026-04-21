@@ -9,6 +9,10 @@ from src.collector.endpoints import ENDPOINTS, LOGIN_PATH
 from src.validator.validator import MODELS as VALIDATOR_MODELS
 
 API_DOWN_WARNING = "⚠️ API unavailable at collection time. Examples may be outdated."
+
+# Обязательные заголовки для всех аутентифицированных запросов к Journal API.
+# Origin и Referer проверяются сервером как часть CORS-политики —
+# без них запрос вернёт 403 даже с валидным Bearer токеном.
 REQUIRED_HEADERS = [
     {
         "name": "Origin",
@@ -39,12 +43,38 @@ REQUIRED_HEADERS = [
     },
 ]
 
+# Список серверов в порядке приоритета.
+# Swagger UI использует первый сервер по умолчанию — официальный идёт первым,
+# чтобы можно было сразу тестировать реальные ответы API с Bearer токеном.
+# Mock-сервер — запасной вариант: не требует авторизации, данные анонимизированы.
+SERVERS = [
+    {
+        "url": "https://msapi.top-academy.ru/api/v2",
+        "description": "Official API server (requires valid Bearer token)",
+    },
+    {
+        "url": "https://ittop-mock.blazer19092008.workers.dev/api/v2",
+        "description": "Mock server (anonymized data, updated daily)",
+    },
+]
+
 
 class OpenAPIBuilder:
     """Build and persist OpenAPI schema generated from known endpoints."""
 
     def build(self, examples: dict[str, Any], is_api_down: bool = False) -> dict:
-        """Build OpenAPI 3.0.3 document with examples from collected payloads."""
+        """Build OpenAPI 3.0.3 document with examples from collected payloads.
+
+        Args:
+            examples: Анонимизированные ответы эндпоинтов из anonymizer-а.
+                      Ключ — путь эндпоинта (/dashboard/chart/attendance),
+                      значение — уже очищенный JSON (dict или list).
+            is_api_down: Если True — добавляет предупреждение в description,
+                         что сбор данных не удался и примеры могут быть устаревшими.
+
+        Returns:
+            Готовый OpenAPI 3.0.3 документ в виде dict, готовый к json.dumps().
+        """
 
         description = "Auto-generated documentation from daily Journal API collection."
         if is_api_down:
@@ -57,12 +87,9 @@ class OpenAPIBuilder:
                 "version": date.today().isoformat(),
                 "description": description,
             },
-            "servers": [
-                {
-                    "url": "https://ittop-mock.blazer19092008.workers.dev/api/v2",
-                    "description": "Mock server (anonymized data, updated daily)",
-                }
-            ],
+            # Порядок серверов важен: Swagger UI выбирает первый по умолчанию.
+            # Официальный сервер идёт первым — см. константу SERVERS выше.
+            "servers": SERVERS,
             "components": {
                 "securitySchemes": {
                     "BearerAuth": {
@@ -81,6 +108,12 @@ class OpenAPIBuilder:
 
         for endpoint in ENDPOINTS:
             method = endpoint.method.lower()
+
+            # Определяем схему ответа через реестр MODELS из validator-а.
+            # is_list=True  → schema type: array  (большинство эндпоинтов)
+            # is_list=False → schema type: object (единственный — /settings/user-info)
+            # Если эндпоинт не в MODELS (например /reviews/index/instruction) —
+            # fallback на object, не падаем.
             if endpoint.path in VALIDATOR_MODELS:
                 _model, is_list = VALIDATOR_MODELS[endpoint.path]
                 if is_list:
@@ -108,6 +141,7 @@ class OpenAPIBuilder:
                 },
             }
 
+            # Query-параметры для GET-эндпоинтов (например date_filter, language).
             if endpoint.method.upper() == "GET" and endpoint.params:
                 operation["parameters"] = [
                     {
@@ -120,6 +154,7 @@ class OpenAPIBuilder:
                     for key, value in endpoint.params.items()
                 ]
 
+            # requestBody для POST-эндпоинтов (только /auth/login).
             if endpoint.method.upper() == "POST" and endpoint.params:
                 operation["requestBody"] = {
                     "description": "Content-Type: application/json must be set explicitly.",
@@ -132,11 +167,15 @@ class OpenAPIBuilder:
                     },
                 }
 
+            # Все эндпоинты кроме /auth/login требуют Bearer токен
+            # и обязательные заголовки Origin/Referer.
             if endpoint.path != LOGIN_PATH:
                 operation["security"] = [{"BearerAuth": []}]
+                # REQUIRED_HEADERS идут первыми — они важнее query-параметров
                 existing_params = operation.get("parameters", [])
                 operation["parameters"] = REQUIRED_HEADERS + existing_params
 
+            # Подставляем анонимизированный пример ответа если он есть.
             if endpoint.path in examples:
                 operation["responses"]["200"]["content"]["application/json"]["example"] = examples[
                     endpoint.path
@@ -147,7 +186,13 @@ class OpenAPIBuilder:
         return spec
 
     def save(self, spec: dict, path: str = "documentation/openapi.json") -> None:
-        """Persist generated OpenAPI document as formatted JSON."""
+        """Persist generated OpenAPI document as formatted JSON.
+
+        Args:
+            spec: Документ из метода build().
+            path: Куда сохранять. По умолчанию — папка documentation/,
+                  которую деплоит GitHub Pages.
+        """
 
         destination = Path(path)
         destination.parent.mkdir(parents=True, exist_ok=True)

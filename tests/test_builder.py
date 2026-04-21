@@ -79,3 +79,18 @@ def test_build_uses_array_schema_and_response_examples_for_list_endpoints():
 
     assert response["schema"]["type"] == "array"
     assert response["example"] == examples["/dashboard/chart/attendance"]
+
+
+def test_build_contains_official_and_mock_servers():
+    """Spec should list both the real API and the mock server.
+
+    Swagger UI показывает первый сервер по умолчанию — официальный идёт первым,
+    чтобы можно было сразу делать запросы к реальному API с Bearer токеном.
+    Mock остаётся вторым — для проверки структуры без авторизации.
+    """
+
+    spec = OpenAPIBuilder().build(examples={})
+    urls = [s["url"] for s in spec["servers"]]
+
+    assert "https://msapi.top-academy.ru/api/v2" in urls
+    assert "https://ittop-mock.blazer19092008.workers.dev/api/v2" in urls
