@@ -36,6 +36,9 @@ ENDPOINTS: list[Endpoint] = [
     Endpoint(path="/schedule/operations/get-month", method="GET", params={
         "date_filter": date.today().isoformat(),
     }),
+    Endpoint(path="/schedule/operations/get-by-date", method="GET", params={
+        "date_filter": date.today().isoformat(),
+    }),
     Endpoint(path="/progress/operations/student-visits", method="GET"),
     Endpoint(path="/progress/operations/student-exams", method="GET"),
     Endpoint(path="/library/operations/list", method="GET", params={
