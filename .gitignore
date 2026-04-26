@@ -1,9 +1,42 @@
+# Dependencies
+node_modules/
+vendor/
+.venv/
+venv/
+__pycache__/
+
+# Build
+build/
+dist/
+out/
+*.o
+*.so
+*.exe
+
+# IDE
+.vscode/
+.idea/
+.zed/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Project-specific
 data/raw/*
 !data/raw/.gitkeep
-__pycache__/
-.env
-*.pyc
 examples/data/validation_issue.md
 data/validation_issue.md
 .wrangler
-.zed/

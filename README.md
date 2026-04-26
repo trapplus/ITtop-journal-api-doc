@@ -16,7 +16,15 @@ IT Top Journal не имеет публичной документации. Эт
 
 ## For AI Agents
 
-Read `AGENTS.md` first.
+All AI agents working in this repo follow the shared rules in [`AGENTS.md`](AGENTS.md). Read it first.
+Agent-specific files add only what's unique to each tool — no duplication:
+
+| File | Tool | Purpose |
+|------|------|---------|
+| [`AGENTS.md`](AGENTS.md) | All | Shared rules — single source of truth |
+| [`CLAUDE.md`](CLAUDE.md) | Claude Code | TDD enforcement, verification mandate |
+| [`GEMINI.md`](GEMINI.md) | Gemini CLI | Lifecycle phases, decision protocol |
+| [`.codex/AGENTS.md`](.codex/AGENTS.md) | Codex | Style rules, superpowers setup |
 
 ## Структура
 
@@ -30,9 +38,10 @@ data/
   raw/           Сырые ответы API (в .gitignore)
   examples/      Анонимизированные примеры (коммитятся)
 documentation/   Артефакт для GitHub Pages
-docs/
+devel/
   design/        Архитектурные решения
   plans/         Планы реализации
+  changelog/     История изменений
 tests/           Pytest-тесты
 ```
 

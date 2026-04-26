@@ -1,10 +1,11 @@
 # src/
 
-Source code goes here.
+Source code lives here.
 
-Adjust structure per project:
+Tests mirror this structure in `tests/` — if `src/parser.py` exists, write `tests/test_parser.py`.
 
-- **C++**: `include/` for headers, `src/` for implementation
+Adjust per project:
 - **Python**: package directory with `__init__.py`
-- **Rust**: handled by Cargo, this folder may not be needed
 - **TypeScript**: `src/` with index entry point
+- **C++**: `include/` for headers, `src/` for implementation
+- **Rust**: handled by Cargo, this folder may not be needed

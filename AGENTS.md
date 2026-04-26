@@ -4,11 +4,10 @@
 
 ## Project Context
 
-<!-- TODO: Fill in before using this template -->
-- **Project:** [Name]
-- **Language / Stack:** [e.g. C++20 / CMake / SFML, Python / uv / FastAPI]
-- **Test runner:** [e.g. pytest, catch2, cargo test]
-- **Linter / formatter:** [e.g. clang-tidy, ruff, clippy]
+- **Project:** journal-api-docs
+- **Language / Stack:** Python 3.12 / uv / httpx / Pydantic v2 / Faker
+- **Test runner:** pytest
+- **Linter / formatter:** ruff
 
 ---
 
@@ -28,7 +27,7 @@
 
 1. **Clarify the task.** Ask one focused question if the spec is ambiguous. Don't guess.
 2. **Check existing code.** Don't reinvent what's already there.
-3. **Write the plan.** For anything >1 file or >30 min of work, write a plan to `docs/plans/YYYY-MM-DD-feature.md` first.
+3. **Write the plan.** For anything >1 file or >30 min of work, write a plan to `devel/plans/YYYY-MM-DD-name.md` first.
 
 ### Implementation Loop
 
@@ -70,11 +69,14 @@ Red flags — stop and re-investigate if you're thinking:
 ```
 src/        # Source code
 tests/      # Tests — mirror src/ structure
-docs/
-  design/   # Design docs
+devel/
+  init.md   # Getting started after creating from template
   plans/    # Implementation plans (YYYY-MM-DD-name.md)
+  design/   # Design documents (01-idea → 07-tradeoffs)
+  changelog/# Changelog (LLM and human-written)
 skills/     # Agent skill references (see below)
 .codex/     # Codex-specific config
+.github/    # PR templates
 ```
 
 <!-- Adjust per project, e.g. for C++ add include/ -->
@@ -90,6 +92,8 @@ When tackling a specific type of task, read the relevant skill file first:
 | Something is broken | `skills/systematic-debugging.md` |
 | Planning a feature | `skills/writing-plans.md` |
 | Code review | `skills/code-review.md` |
+| About to claim done | `skills/verification-before-completion.md` |
+| Implementing anything | `skills/test-driven-development.md` |
 
 ---
 

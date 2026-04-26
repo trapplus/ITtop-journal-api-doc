@@ -2,7 +2,10 @@
 
 Tests mirror the structure of `src/`.
 
-If `src/parser.cpp` exists → `tests/test_parser.cpp`
-If `src/utils/config.py` exists → `tests/utils/test_config.py`
+| src/ | tests/ |
+|------|--------|
+| `src/parser.py` | `tests/test_parser.py` |
+| `src/utils/config.py` | `tests/utils/test_config.py` |
+| `src/parser.cpp` | `tests/test_parser.cpp` |
 
 Write the test before the implementation. Always.
